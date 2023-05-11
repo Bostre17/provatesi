@@ -211,11 +211,10 @@ function sendData(data) {
     alert('Oops! Something went wrong. Try refreshing the page. If the issue persists, please read the message at the bottom of the page.');
   });
 
-  // Set up our request
-  //XHR.open('POST', 'https://script.google.com/macros/s/AKfycbzgoJLTCyaqrgrZ2jCHQZKymAZpW7ON1YX4nhXJ8lNyvraYf1MzJF01MIjJFWI-GQE/exec');
-
   // Set up request to my Google Sheet
-  XHR.open('POST', 'https://script.google.com/macros/s/AKfycbyuBMedQoivgJvHnFNDRo2tH8vr50-hi_LEMY6cZQDBhzVUcvlJJLDq2E9O2jR8Ab3n/exec');
+  // ORIGINAL SHAPE2TEXT: XHR.open('POST', 'https://script.google.com/macros/s/AKfycbyuBMedQoivgJvHnFNDRo2tH8vr50-hi_LEMY6cZQDBhzVUcvlJJLDq2E9O2jR8Ab3n/exec');
+  
+  XHR.open('POST', 'https://script.google.com/macros/s/AKfycbz8Uy57JlfTdlVAwTc-q_ynagOfk8pm3_yCU2rgm4xNhpcpKKqqsT6ikYJMKoBP7QPylQ/exec');
 
   // Send our FormData object; HTTP headers are set automatically
   XHR.send(FD);
