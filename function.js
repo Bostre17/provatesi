@@ -84,7 +84,7 @@ function newSampleImages(){
     text = data[idx].text
     dataset = data[idx].dataset
     task = data[idx].task
-    base_url = 'https://raw.githubusercontent.com/shape2textevaluation/shape2textevaluation.github.io/main/shapes/'
+    base_url = 'https://raw.githubusercontent.com/AndreAmaduzzi/humaneval_genshapes.github.io/main/shapes/'
 
     // Method order is randomized
     var shapes = shuffleArray([gt_id, dist_id])
