@@ -15,20 +15,16 @@ function clickImage(imgId){
   console.log('preference: ', imgId)
   console.log('img0: ', img0_id)
   console.log('img1: ', img1_id)
-  console.log('target: ', target)
+  console.log('point_e_idx: ', point_e_idx)
   console.log('text: ', text)
-  console.log('dataset: ', dataset)
-  console.log('task: ', task)
 
   // save data we care about
   sendData({"username": userId,
             "preference": imgId,
             "img0": img0_id,
             "img1": img1_id,
-            "target": target,
-            "text": text,
-            "dataset": dataset,
-            "task": task})
+            "point_e_idx": point_e_idx,
+            "text": text})
 
   // Delay display the next 2 images
   // If first time this gt is shown => display now the same pair (no shuffle now) with the other text
@@ -73,38 +69,48 @@ function displayText(file, idx) {
 function newSampleImages(){
 
   //fetch('./randomt2s_1e2h_data.json')
-  fetch('./human_test_set_final.json')
+  //fetch('./human_test_set_final.json')
+  fetch('./humaneval_genshapes.json')
   .then(response => response.json())
   .then(data => {
     console.log(data)
     // pick random element from data
     idx = getRandomInt(data.length)
-    gt_id = data[idx].gt_id
-    dist_id = data[idx].dist_id
+    point_e = data[idx].point_e
+    towardsimpl = data[idx].towardsimpl
     text = data[idx].text
-    dataset = data[idx].dataset
-    task = data[idx].task
     base_url = 'https://raw.githubusercontent.com/AndreAmaduzzi/humaneval_genshapes.github.io/main/shapes/'
+    base_url = 'https://raw.githubusercontent.com/AndreAmaduzzi/humaneval_genshapes.github.io/main/'
 
     // Method order is randomized
-    var shapes = shuffleArray([gt_id, dist_id])
-    if (shapes[0]==gt_id) // target is used to remember which shape is GT
+    var shapes = shuffleArray([point_e, towardsimpl])
+    if (shapes[0]==point_e) // target is used to remember which shape is GT
     {
-      target = 0
+      point_e_idx = 0
     }
     else
     {
-      target = 1
+      point_e_idx = 1
     }
 
     // save model_ids of images
     img0_id = shapes[0]
     img1_id = shapes[1]
 
-    // display images
-    img0.src = base_url + img0_id + ".png"
-    img1.src = base_url + img1_id + ".png"
+    console.log('img0: ', img0_id)
 
+    // display images: adjust path according to source (point_e or towardsimpl)
+    if (point_e_idx == 0)
+    {
+      img0.src = base_url + 'point_e/' + img0_id + ".png"
+      img1.src = base_url + 'towardsimpl/' + img1_id + ".png"
+    }
+    else
+    {
+      img1.src = base_url + 'point_e/' + img1_id + ".png"
+      img0.src = base_url + 'towardsimpl/' + img0_id + ".png"
+    }
+    
 
     // display text
     document.getElementById("Text").innerText = text
